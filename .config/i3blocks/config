@@ -1,0 +1,38 @@
+#Globals
+command=/home/sebastiao/.config/i3blocks/blocks/i3blocks-contrib/$BLOCK_NAME/$BLOCK_NAME
+separator_block_width=30
+
+[weather]
+label= 
+command=curl -Ss 'http://wttr.in/?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+
+[disk-home]
+command=echo -n '  '; df -h -l --output='used' "$HOME" | grep -E -o '[0-9]+G'
+interval=30
+
+[memory]
+label=  
+interval=30
+
+[volume-pulseaudio]
+interval=1
+signal=10
+LONG_FORMAT="${SYMB}${VOL}%"
+SHORT_FORMAT="${SYMB}${VOL}%"
+DEFAULT_COLOR="#f3f4f5"
+USE_ALSA_NAME=1
+
+[battery2]
+#command=/home/sebastiao/.config/i3blocks/blocks/i3blocks-contrib/battery2/battery2
+markup=pango
+interval=30
+
+[calendar]
+interval=1
+LABEL= 
+DATEFMT=+%a %d-%b-%Y %H:%M:%S
+HEIGHT=180
+WIDTH=220
+
+

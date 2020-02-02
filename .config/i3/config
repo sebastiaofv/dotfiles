@@ -1,0 +1,236 @@
+
+
+# Configuration of i3-gabs by -> Sebastião Vicente
+# Reference: https://i3wm.org/docs/userguide.html
+
+
+########### Basics ###########
+
+set $mod Mod4
+font pango:Source Sans Pro 6
+
+# Set wallpaper
+exec --no-startup-id feh --bg-fill ~/Pictures/current1.jpg
+exec --no-startup-id compton
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Bluetooth
+exec --no-startup-id blueman-applet
+
+# Pulse Audio Systray
+exec --no-startup-id pasystray
+
+# Network manager applet
+exec --no-startup-id nm-applet
+
+# Start RescueTime
+exec --no-startup-id rescuetime
+
+# Define window borders
+default_border pixel 3
+default_floating_border pixel 3
+
+# Hide borders
+hide_edge_borders both
+
+# Open specific applications in floating
+for_window [class="Pcmanfm"] floating enable
+for_window [class="Yad"] floating enable
+for_window [class="gnome-calculator"] floating enable
+
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Blueman-manager"] resize set 640 450
+for_window [class="Blueman-manager"] move position center
+
+# Set gaps between windows
+gaps inner 8
+gaps outer 0
+
+# Set brightness to 100 on start 
+exec "xbacklight -set 100"
+
+# Dont focus on mouse over
+focus_follows_mouse no
+
+########### Key Bindings ############
+
+# Pulse Audio Controls
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioMute exec        "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Increase / Decrease screen Brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+# Start Terminal
+bindsym $mod+Return workspace $ws3; exec --no-startup-id urxvt
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Turn off pc monitor - only use second monitor
+bindsym $mod+Shift+s exec xrandr --output DP-0 --off
+
+# Turn on pc monitor
+bindsym $mod+Shift+o exec xrandr --output DP-0 --auto
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 
+bindsym $mod+Shift+r restart
+
+# Custom bindings for programs
+bindsym $mod+d exec --no-startup-id rofi -show drun -width 30 
+bindsym $mod+t exec --no-startup-id pcmanfm
+
+# Custom bindings scripts
+bindsym $mod+l exec /home/sebastiao/scripts/i3lock.sh
+
+# Binding Screenshot
+bindsym Print exec --no-startup-id scrot ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.png
+
+########### Colors ###########
+
+set $bg-colour		    	#171717
+set $inactive-bg-colour 	#171717
+set $text-colour		    #686868
+set $inactive-text-color	#171717
+set $urgent-bg-colour		#171717
+
+client.focused			    $bg-colour $bg-colour $text-colour $bg-colour
+client.unfocused		    $inactive-bg-colour $inactive-bg-colour $inactive-text-colour $inactive-bg-colour
+client.focused_inactive 	$inactive-bg-colour $inactive-bg-colour $inactive-text-colour $inactive-bg-colour
+client.urgent			    $urgent-bg-colour $urgent-bg-colour $text-colour
+
+########### Workspaces ###########
+
+set $ws1  "1:  Web"
+set $ws2  "2:  Code"
+set $ws3  "3:  Terminals"
+set $ws4  "4:  Writing"
+set $ws5  "5:  Tools"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9:  Social"
+set $ws10 "10:  Music"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Start chromium on workspace 1
+exec i3-msg 'workspace $ws1; exec chromium;'
+
+########### Helper for mode system ###########
+
+set $mode_system "[l]ock  |  log[o]ut  |  [r]eboot  |  [p]oweroff"
+mode $mode_system {
+	bindsym l exec /home/sebastiao/scripts/i3lock.sh
+	bindsym o exec i3-msg exit; mode "default"
+	bindsym r exec systemctl reboot; mode "default"
+	bindsym p exec systemctl poweroff; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+e mode $mode_system
+
+mode "resize" {
+
+       	# Arrow key bindings 
+    	bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # Back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bar {
+	
+    font pango: Hack, Awesome 6
+    status_command i3blocks
+	position top
+ 	colors { 
+	    background #171717
+	    focused_workspace #99B898 #99B898 #ffffff
+	    inactive_workspace #5E5E5C #5E5E5C $5E5E5C
+	}
+
+}
+
+
