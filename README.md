@@ -1,2 +1,2 @@
 # dotfiles
-~ My Arch Linux Rice ~
+Personal config
